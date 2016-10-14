@@ -16,23 +16,22 @@
  *    under the License.
  */
 
-package org.mili.rnd.rxJava.test.chaining.mediator2;
+package org.mili.rnd.rxJava.test.chaining.mediator3.Impl;
+
+import org.mili.rnd.rxJava.test.chaining.mediator3.AbstractMediator;
+import org.mili.rnd.rxJava.test.chaining.mediator3.RxContext;
 
 /**
  * Created by milinda on 10/3/16.
  */
-public class RxContext {
-    private String message;
+public class LogMediator extends AbstractMediator {
 
-    public RxContext(String message) {
-        this.message = message;
-    }
+    @Override
+    public boolean receive(RxContext rxContext) {
+        System.out.println("[THREAD " + Thread.currentThread().getId() + "] START LogMediator : ");
+        System.out.println("[THREAD " + Thread.currentThread().getId() + "] END LogMediator : ");
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
+        next(rxContext);
+        return true;
     }
 }

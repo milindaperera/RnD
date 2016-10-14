@@ -16,14 +16,34 @@
  *    under the License.
  */
 
-package org.mili.rnd.rxJava.test.chaining.mediator2;
-
-
-import rx.subjects.Subject;
+package org.mili.rnd.rxJava.test.chaining.mediator3;
 
 /**
  * Created by milinda on 10/3/16.
  */
-public abstract class AbstractMediator implements Mediator {
+public class RxContext {
 
+    private String message;
+    private Mediator currentMediator; //current executing mediator
+    //private CarbonCallback parentCallback; // This hold the parent callback which need to notify at the end of the mediation flow
+
+    public RxContext(String message) {
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public Mediator getCurrentMediator() {
+        return currentMediator;
+    }
+
+    public void setCurrentMediator(Mediator currentMediator) {
+        this.currentMediator = currentMediator;
+    }
 }

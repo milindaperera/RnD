@@ -16,12 +16,39 @@
  *    under the License.
  */
 
-package org.mili.rnd.rxJava.test.chaining.mediator2;
+package org.mili.rnd.rxJava.test.chaining.mediator3;
 
 /**
  * Created by milinda on 10/3/16.
  */
-public interface Mediator {
+public abstract class AbstractMediator implements Mediator {
 
-    boolean receive();
+    Mediator nextMediator;
+
+    @Override
+    public boolean next(RxContext context) {
+        return nextMediator == null || nextMediator.receive(context);
+    }
+
+    public Mediator getNextMediator() {
+        return nextMediator;
+    }
+
+    public void setNextMediator(Mediator nextMediator) {
+        this.nextMediator = nextMediator;
+    }
+
+    @Override
+    public void error(RxContext context) {
+        if (hasNext()) {
+            nextMediator.error(context);
+        } else {
+            System.out.println("Handle Error");
+        }
+    }
+
+    @Override
+    public boolean hasNext() {
+        return nextMediator != null;
+    }
 }
